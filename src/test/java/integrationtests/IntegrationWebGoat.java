@@ -58,8 +58,8 @@ public class IntegrationWebGoat {
             }
 
             Assert.assertTrue("Profile results expected", profileResult.size()==2);
-            Assert.assertTrue("Not found request 1", profileResult.get(1).contains("http://localhost:8080/WebGoat/js/goatApp/support/GoatUtils.js") );
-            Assert.assertTrue("Not found request 2", profileResult.get(2).contains("http://localhost:8080/WebGoat/login") );
+            Assert.assertTrue("Not found request 1", profileResult.get(0).contains("http://localhost:8080/WebGoat/js/goatApp/support/GoatUtils.js") );
+            Assert.assertTrue("Not found request 2", profileResult.get(1).contains("http://localhost:8080/WebGoat/login") );
         }
         catch (Exception ex) {
             Assert.fail("testProfiler failed due:\n" + Print.printExceptionStack(ex));
