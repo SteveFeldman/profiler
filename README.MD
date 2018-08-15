@@ -67,7 +67,7 @@ Example: objCtor=java.lang.String;objCtor=java.lang.Number;func2prof=my.test.met
 Example below tracks usage of Strings and Long, in methods app2profile.Handlers.firstHandler and app2profile.Handlers.anotherHandler. Store results into the file 'profile.txt'
 
 ```
-java -javaagent:lib/java-allocation-instrumenter-3.1.0.jar -javaagent:target/profiler-1.0.jar=obj2track:java.lang.String,obj2track:java.lang.Long,func2prof:app2profile.Handlers.firstHandler,func2prof:app2profile.Handlers.anotherHandler -cp <your_jars> <main_class>
+java -javaagent:lib/java-allocation-instrumenter-3.1.0.jar -javaagent:target/profiler-1.0.jar=obj2track:java.lang.String,obj2track:java.lang.Long,func2prof:app2profile.Handlers.firstHandler,func2prof:app2profile.Handlers.anotherHandler,resultFile=profile.txt -cp <your_jars> <main_class>
 ```
 Output will be:
 ```
@@ -83,7 +83,7 @@ dispatch 1 items
   org.springframework.web.servlet.DispatcherServlet.doDispatch
 logFile:CONSOLE
 logLevel:Err
-resultFile:CONSOLE
+resultFile:profile.txt
 ...........
 ..............
 2018-08-14 20:45:28 app2profile.Handlers.firstHandler() Execution time:1012 ms. In method's thread created tracking objects: 3, consumed memory: 1208 bytes. In all threads created tracking objects: 12, consumed memory: 3440 bytes.
