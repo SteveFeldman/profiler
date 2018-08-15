@@ -45,7 +45,7 @@ Check the usage:
 ```Shell
 java -javaagent:lib/java-allocation-instrumenter-3.1.0.jar -javaagent:target/profiler-1.0.jar -cp <your_jars> <main_class>
 ```
-
+You should see the output:
 ```
 Usage: java -javaagent:<path>/profiler-1.0.jar=<arguments>
 Please specify parameters with arguments string
@@ -69,4 +69,26 @@ Example below tracks usage of Strings and Long, in methods app2profile.Handlers.
 ```
 java -javaagent:lib/java-allocation-instrumenter-3.1.0.jar -javaagent:target/profiler-1.0.jar=obj2track:java.lang.String,obj2track:java.lang.Long,func2prof:app2profile.Handlers.firstHandler,func2prof:app2profile.Handlers.anotherHandler -cp <your_jars> <main_class>
 ```
-
+Output will be:
+```
+Profiling agent is starting with configuration:
+hist:50
+obj2track 2 items:
+  java.lang.Long
+  java.lang.String
+func2prof 2 items:
+  app2profile.Handlers.firstHandler
+  app2profile.Handlers.anotherHandler
+dispatch 1 items
+  org.springframework.web.servlet.DispatcherServlet.doDispatch
+logFile:CONSOLE
+logLevel:Err
+resultFile:CONSOLE
+...........
+..............
+2018-08-14 20:45:28 app2profile.Handlers.firstHandler() Execution time:1012 ms. In method's thread created tracking objects: 3, consumed memory: 1208 bytes. In all threads created tracking objects: 12, consumed memory: 3440 bytes.
+..............
+................
+Profiler result for last 1 items:
+2018-08-14 20:45:28 app2profile.Handlers.firstHandler() Execution time:1012 ms. In method's thread created tracking objects: 3, consumed memory: 1208 bytes. In all threads created tracking objects: 12, consumed memory: 3440 bytes.
+```
