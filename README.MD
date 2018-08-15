@@ -1,10 +1,11 @@
-# WebGoat 8: A deliberately insecure Web Application
+# Profiler: Simple Java Agent for prifiling metod calls.
 
-[![Build Status](https://https://travis-ci.com/kbay0/profiler.svg?branch=master)](https://travis-ci.com/kbay0/profiler)
+[![Build Status](https://travis-ci.com/kbay0/profiler.svg?branch=master)](https://travis-ci.com/kbay0/profiler)
 
 # Introduction
 
-Profiler is a Java based agent. The agent can be configured to profile any non core Java method in generic application. In case of Web Application, profiled information will be enriched with URL. Results of profiling can be viewable wuth URL that ends with 'profiler'.
+This profiler is not intended to use in production. It is just a demo application.
+The agent can be configured to profile any non core Java method in generic application. In case of Web Application, profiled information will be enriched with URL. Results of profiling can be viewable with URL that ends with 'profiler'.
 
 For any profiled function agent calculate metrics:
 - execution time
