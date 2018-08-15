@@ -9,8 +9,8 @@ The agent can be configured to profile any non core Java method in generic appli
 
 For any profiled function agent calculate metrics:
 - execution time
-- Number of tracking objects created.
-- Amount of allocated memory
+- Number of tracking objects created (in method's thread, all threads)
+- Amount of allocated memory (in method's thread, all threads)
 
 This app was builded and tested with Java 8.
 
