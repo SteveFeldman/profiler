@@ -44,6 +44,15 @@ public class IntegrationWebGoat {
             Exec.executeCurl("http://localhost:8080/WebGoat/login");
             List<String> profileResult = Exec.executeCurl("http://localhost:8080/WebGoat/css/profiler");
 
+            if (profileResult.size()!=3){
+                // it is failure, let's print logfile first
+                List<String> logLns = Files.readAllLines(Paths.get("springAgentLogs.txt"));
+                Log.info("Spring profile output has " + logLns.size() + " lines:");
+                for (String l : logLns) {
+                    Log.info(l);
+                }
+            }
+
             Assert.assertTrue("Profile results expected", profileResult.size()==3);
             Assert.assertTrue("Not found request 1", profileResult.get(1).contains("http://localhost:8080/WebGoat/js/goatApp/support/GoatUtils.js") );
             Assert.assertTrue("Not found request 2", profileResult.get(2).contains("http://localhost:8080/WebGoat/login") );
