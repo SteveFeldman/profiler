@@ -43,6 +43,8 @@ Check the usage:
 ```Shell
 java -javaagent:lib/java-allocation-instrumenter-3.1.0.jar -javaagent:target/profiler-1.0.jar -cp <your_jars> <main_class>
 ```
+
+```
 Usage: java -javaagent:<path>/profiler-1.0.jar=<arguments>
 Please specify parameters with arguments string
 All parameters are comma separated (','). objCtor and func2prof can be included multiple times
@@ -57,6 +59,7 @@ Example: objCtor=java.lang.String;objCtor=java.lang.Number;func2prof=my.test.met
   logFile:<file name>        - Logs output to file insted of console
   logLevel:Err|Warn|Info|Debug|Trace - Logs level. Default is Err
   resultFile:<file name>     - Result output to file instead of console
+```
 
 
 Example below tracks usage of Strings and Long, in methods app2profile.Handlers.firstHandler and app2profile.Handlers.anotherHandler. Store results into the file 'profile.txt'
