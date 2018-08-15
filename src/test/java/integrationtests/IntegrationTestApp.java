@@ -40,7 +40,7 @@ public class IntegrationTestApp {
             // Profiler instrumentation expected to be 0. So we will not be able to test
             List<String> lns = Exec.executeProfilerWithParams( "" );
             Assert.assertTrue("Expected long output with usage", lns.size() > 10);
-            Assert.assertTrue("Expected usage output", lns.get(0).startsWith("Usage:"));
+            Assert.assertTrue("Expected usage output", startWith(lns, "Usage:", 6));
         }
         catch (Exception ex) {
             Assert.fail("testProfiler failed due:\n" + Print.printExceptionStack(ex));
@@ -54,11 +54,10 @@ public class IntegrationTestApp {
             // Profiler instrumentation expected to be 0. So we will not be able to test
             List<String> lns = Exec.executeProfilerWithParams( "=func2prof:aaaa" );
             Assert.assertTrue("Expected some output", lns.size() > 10);
-            Assert.assertTrue("Expected: Profiling agent is starting", lns.get(0).startsWith("Profiling agent is starting"));
-            Assert.assertTrue("Expected: 'Done' from app", lns.get(lns.size()-2).equals("Done") || lns.get(lns.size()-3).equals("Done") );
-            Assert.assertTrue("Expected: Profiler result for last 0 items",
-                    lns.get(lns.size()-1).equals("Profiler result for last 0 items:") ||
-                            lns.get(lns.size()-2).equals("Profiler result for last 0 items:") );
+            Assert.assertTrue("Expected: Profiling agent is starting", startWith(lns,"Profiling agent is starting",6));
+
+            Assert.assertTrue("Expected: 'Done' from app", equalsTo(lns, "Done") );
+            Assert.assertTrue("Expected: Profiler result for last 0 items", equalsTo(lns, "Profiler result for last 0 items:"));
         }
         catch (Exception ex) {
             Assert.fail("testProfiler failed due:\n" + Print.printExceptionStack(ex));
@@ -123,6 +122,25 @@ public class IntegrationTestApp {
         catch (Exception ex) {
             Assert.fail("testProfiler failed due:\n" + Print.printExceptionStack(ex));
         }
+    }
+
+    private boolean startWith( List<String> lines, String prefix, int limSz ) {
+        for ( String s : lines ) {
+            if (s.startsWith(prefix))
+                return true;
+            limSz--;
+            if (limSz<=0)
+                break;
+        }
+        return false;
+    }
+
+    private boolean equalsTo( List<String> lines, String str2search ) {
+        for ( String s : lines ) {
+            if (s.equals(str2search))
+                return true;
+        }
+        return false;
     }
 
     /**
