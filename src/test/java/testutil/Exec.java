@@ -98,7 +98,7 @@ public class Exec {
                         String s;
                         while ((s = stdIn.readLine()) != null) {
                             res.add(s);
-                            //System.out.println( s );
+                            Log.info( "Out: " + s );
                         }
                     }
                     catch (Exception ex) {
@@ -118,7 +118,7 @@ public class Exec {
                         String s;
                         while ((s = stdIn.readLine()) != null) {
                             res.add(s);
-                            //System.out.println( s );
+                            Log.info( "Err: " + s );
                         }
                     }
                     catch (Exception ex) {
