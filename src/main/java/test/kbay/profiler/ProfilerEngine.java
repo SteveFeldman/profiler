@@ -150,7 +150,7 @@ public class ProfilerEngine {
             }
         }
         catch (Exception ex) {
-            Log.error("onDispatcherRequest reflection error", ex);
+            Log.error("onDispatcherRequest reflection error for getRequestURL", ex);
             return false;
         }
 
