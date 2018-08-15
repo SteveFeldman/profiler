@@ -50,7 +50,7 @@ public class Exec {
 
         try {
             return Exec.execute(0, new String[] {"java", "-javaagent:lib/java-allocation-instrumenter-3.1.0.jar",
-                    "-javaagent:target/profiler-1.0.jar=func2prof:org.springframework.web.servlet.DispatcherServlet.doDispatch,obj2track:java.lang.String,logLevel:Debug,logFile:springAgentLogs.txt",
+                    "-javaagent:target/profiler-1.0.jar=func2prof:org.springframework.web.servlet.DispatcherServlet.doDispatch,obj2track:java.lang.String,logLevel:Debug,logFile:springAgentLogs.txt,resultFile:profiler.txt",
                     "-jar", "test_lib/webgoat-server-8.0.0.M21.jar"}).proc;
         }
         catch (Exception e) {
@@ -98,7 +98,7 @@ public class Exec {
                         String s;
                         while ((s = stdIn.readLine()) != null) {
                             res.add(s);
-                            Log.info( "Out: " + s );
+                            //Log.info( "Out: " + s );
                         }
                     }
                     catch (Exception ex) {
@@ -118,7 +118,7 @@ public class Exec {
                         String s;
                         while ((s = stdIn.readLine()) != null) {
                             res.add(s);
-                            Log.info( "Err: " + s );
+                            //Log.info( "Err: " + s );
                         }
                     }
                     catch (Exception ex) {

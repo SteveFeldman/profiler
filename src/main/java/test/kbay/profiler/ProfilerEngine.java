@@ -297,7 +297,7 @@ public class ProfilerEngine {
         if (config != null && config.resFn != null) {
             try {
                 output = new PrintStream(
-                        new FileOutputStream(config.resFn, false));
+                        new FileOutputStream(config.resFn, true));
             } catch (Throwable ex) {
                 Log.error("Unable to create file for result printing", ex);
             }
