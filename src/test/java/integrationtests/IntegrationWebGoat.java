@@ -43,12 +43,11 @@ public class IntegrationWebGoat {
             // 2 calls are expecting
             Exec.executeCurl("http://localhost:8080/WebGoat/js/goatApp/support/GoatUtils.js");
             Exec.executeCurl("http://localhost:8080/WebGoat/login");
-            // Because of securuty URL might fail. Let' use a file instead
-            //List<String> profileResult = Exec.executeCurl("http://localhost:8080/WebGoat/css/profiler");
+            List<String> profileUrlResult = Exec.executeCurl("http://localhost:8080/WebGoat/css/profiler");
 
-            List<String> profileResult = Files.readAllLines(Paths.get("profiler.txt"));
+            List<String> profileFileResult = Files.readAllLines(Paths.get("profiler.txt"));
 
-            if (profileResult.size()!=2){
+            if (profileFileResult.size()!=2){
                 // it is failure, let's print logfile first
                 List<String> logLns = Files.readAllLines(Paths.get("springAgentLogs.txt"));
                 Log.info("Spring profile output has " + logLns.size() + " lines:");
@@ -57,9 +56,13 @@ public class IntegrationWebGoat {
                 }
             }
 
-            Assert.assertTrue("Profile results expected", profileResult.size()==2);
-            Assert.assertTrue("Not found request 1", profileResult.get(0).contains("http://localhost:8080/WebGoat/js/goatApp/support/GoatUtils.js") );
-            Assert.assertTrue("Not found request 2", profileResult.get(1).contains("http://localhost:8080/WebGoat/login") );
+            Assert.assertTrue("Profile File results expected", profileFileResult.size()==2);
+            Assert.assertTrue("Not found file request 1", profileFileResult.get(0).contains("http://localhost:8080/WebGoat/js/goatApp/support/GoatUtils.js") );
+            Assert.assertTrue("Not found file request 2", profileFileResult.get(1).contains("http://localhost:8080/WebGoat/login") );
+
+            Assert.assertTrue("Profile url results expected", profileUrlResult.size()==3);
+            Assert.assertTrue("Not found url request 1", profileUrlResult.get(1).contains("http://localhost:8080/WebGoat/js/goatApp/support/GoatUtils.js") );
+            Assert.assertTrue("Not found url request 2", profileUrlResult.get(2).contains("http://localhost:8080/WebGoat/login") );
         }
         catch (Exception ex) {
             Assert.fail("testProfiler failed due:\n" + Print.printExceptionStack(ex));

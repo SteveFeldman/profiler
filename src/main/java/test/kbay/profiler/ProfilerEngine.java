@@ -123,51 +123,12 @@ public class ProfilerEngine {
     }
 
     /**
-     * Patch that provides profiling data for HTTP server. If request ends with 'profiler', the profile result data will be
-     *    returned to caller.
-     * @param httpServletRequest
-     * @param httpServletResponse
-     * @return  return true if profile data was returned.
+     * Patch that provides profiling data for HTTP server.Profile result data will be written to writer
+     * @param writer - writer for respond
+     * @return  return true if profile data was written into writer.
      */
-    public static boolean onDispatcherRequest( Object httpServletRequest, Object httpServletResponse ) {
-        if (httpServletRequest == null || httpServletResponse == null) {
-            Log.info("onDispatcherRequest call with null arg values");
-            return false;
-        }
-
-        Log.debug("onDispatcherRequest called with httpServletRequest: " + httpServletRequest.getClass().getName() + " and response " + httpServletResponse.getClass().getName() );
-        Method getRequestURLMethod = Reflection.findMethodByName( httpServletRequest, "getRequestURL" );
-        if (getRequestURLMethod==null) {
-            Log.warn("onDispatcherRequest fail to process httpServletRequest argument");
-            return false;
-        }
-
+    public static boolean onPrintProfilingResults( java.io.PrintWriter writer ) {
         try {
-            Object url = getRequestURLMethod.invoke(httpServletRequest);
-            Log.debug("onDispatcherRequest called with url: " + url);
-            if (url == null || !url.toString().endsWith("profiler")) {
-                return false;
-            }
-        }
-        catch (Exception ex) {
-            Log.error("onDispatcherRequest reflection error for getRequestURL", ex);
-            return false;
-        }
-
-        // We don't checking http method, can be any.
-        // Return the result for this request
-        Method setStatusMethod = Reflection.findMethodByName( httpServletResponse, "setStatus" );
-        Method getWriterMethod = Reflection.findMethodByName( httpServletResponse, "getWriter" );
-
-        if (setStatusMethod==null || getWriterMethod==null) {
-            Log.warn("onDispatcherRequest fail to process httpServletResponse argument");
-            return false;
-        }
-
-        try {
-            setStatusMethod.invoke(httpServletResponse, 200);
-            PrintWriter writer = (PrintWriter)getWriterMethod.invoke(httpServletResponse);
-
             List<String> profResults = getResults();
 
             writer.println("Profiler result for last " + profResults.size() + " items:");
@@ -182,7 +143,6 @@ public class ProfilerEngine {
             Log.error("onDispatcherRequest reflection error", ex);
             return false;
         }
-
     }
 
     /**

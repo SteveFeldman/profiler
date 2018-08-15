@@ -92,3 +92,25 @@ resultFile:profile.txt
 Profiler result for last 1 items:
 2018-08-14 20:45:28 app2profile.Handlers.firstHandler() Execution time:1012 ms. In method's thread created tracking objects: 3, consumed memory: 1208 bytes. In all threads created tracking objects: 12, consumed memory: 3440 bytes.
 ```
+# Run with WebGoat and verify the workflow
+
+Web goat is located at test_lib/webgoat-server-8.0.0.M21.jar
+
+1. Cd to your project root dir
+```
+cd <dev_root>
+```
+2. Start webgoat, profiler will use debug output.
+```
+java -javaagent:lib/java-allocation-instrumenter-3.1.0.jar  -javaagent:target/profiler-1.0.jar=func2prof:org.springframework.web.servlet.DispatcherServlet.doDispatch,obj2track:java.lang.String,logLevel:Debug -jar test_lib/webgoat-server-8.0.0.M21.jar
+```
+In the output you should see:
+Info  | Instrumenting class: org/springframework/web/servlet/DispatcherServlet
+Debug | Transform finished for: org/springframework/web/servlet/DispatcherServlet
+
+3. Wait until webserver will be ready (could take up to 60 secondes) and print 'Tomcat started on port(s): 8080 (http)'
+
+4. Open you browser on the same host and type 'http://localhost:8080/WebGoat/login'
+In the output you shoudl see that profiler did some action.
+
+5. Check profiler results by typing url 'http://localhost:8080/WebGoat/css/img/profiler'

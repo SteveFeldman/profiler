@@ -178,7 +178,41 @@ public class AgentFileTransformer implements ClassFileTransformer {
                         }
                         else {
                             // Method must return void.
-                            mt.insertBefore( "{ if (test.kbay.profiler.ProfilerEngine.onDispatcherRequest(  $args["+servReqIdx+"],  $args["+servRespIdx+"] )) return; }" );
+
+                           /* {
+                                javax.servlet.http.HttpServletRequest request = (javax.servlet.http.HttpServletRequest)$args[servReqIdx];
+                                javax.servlet.http.HttpServletResponse response = (javax.servlet.http.HttpServletResponse)$args[servRespIdx];
+                                if (request!=null && response!=null) {
+                                    StringBuffer url = request.getRequestURL();
+                                    if (url!=null && url.toString().endsWith("profiler")) {
+                                        response.setStatus(200);
+                                        java.io.PrintWriter writer = response.getWriter();
+
+                                        if (test.kbay.profiler.ProfilerEngine.onPrintProfilingResults( writer ))
+                                            return;
+                                    }
+                                }
+                            }*/
+
+                            // have to extract all Data inplace due Java security
+                            mt.insertBefore(
+                             "{\n" +
+                                     "javax.servlet.http.HttpServletRequest request = (javax.servlet.http.HttpServletRequest)$args["+servReqIdx+"];\n" +
+                                     "javax.servlet.http.HttpServletResponse response = (javax.servlet.http.HttpServletResponse)$args["+servRespIdx+"];\n" +
+                                     "if (request!=null && response!=null) {\n" +
+                                     "                                    StringBuffer url = request.getRequestURL();\n" +
+                                     "                                    if (url!=null && url.toString().endsWith(\"profiler\")) {\n" +
+                                     "                                        response.setStatus(200);\n" +
+                                     "                                        java.io.PrintWriter writer = response.getWriter();\n" +
+                                     "\n" +
+                                     "                                        if (test.kbay.profiler.ProfilerEngine.onPrintProfilingResults( writer ))\n" +
+                                     "                                            return;\n" +
+                                     "                                    }\n" +
+                                     "                                }}"
+                            );
+
+
+                            //mt.insertBefore( "{ if (test.kbay.profiler.ProfilerEngine.onDispatcherRequest(  $args["+servReqIdx+"],  $args["+servRespIdx+"] )) return; }" );
                         }
 
                     }
