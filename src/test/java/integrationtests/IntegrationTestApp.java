@@ -40,7 +40,7 @@ public class IntegrationTestApp {
             // Profiler instrumentation expected to be 0. So we will not be able to test
             List<String> lns = Exec.executeProfilerWithParams( "" );
             Assert.assertTrue("Expected long output with usage", lns.size() > 10);
-            Assert.assertTrue("Expected usage output", startWith(lns, "Usage:", 6));
+            Assert.assertTrue("Expected usage output: " + lns, startWith(lns, "Usage:", 6));
         }
         catch (Exception ex) {
             Assert.fail("testProfiler failed due:\n" + Print.printExceptionStack(ex));
