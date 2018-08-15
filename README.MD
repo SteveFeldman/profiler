@@ -14,6 +14,8 @@ For any profiled function agent calculate metrics:
 
 This app was builded and tested with Java 8.
 
+Please note, the sources include jars that are used for intergation testing and some third party libraries.
+
 # Run Instructions:
 
 ## Run from the sources
