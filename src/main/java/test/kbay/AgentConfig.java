@@ -114,7 +114,7 @@ public class AgentConfig {
         sb.append("                             has argument javax.servlet.http.HttpServletRequest, profile call will be \n");
         sb.append("                             updated with url\n");
         sb.append("  dispatch:org.springframework.web.servlet.DispatcherServlet.doDispatch - Dispatch method for your webserver.\n");
-        sb.append("                             If this method exist, you will get results on a webpage with any url that ends with '/profile'\n");
+        sb.append("                             If this method exist, you will get results on a webpage with any url that ends with '/profiler'\n");
         sb.append("  logFile:<file name>        - Logs output to file insted of console\n");
         sb.append("  logLevel:Err|Warn|Info|Debug|Trace - Logs level. Default is Err\n");
         sb.append("  resultFile:<file name>     - Result output to file instead of console\n");

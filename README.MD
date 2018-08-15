@@ -57,7 +57,7 @@ Example: objCtor=java.lang.String;objCtor=java.lang.Number;func2prof=my.test.met
                              has argument javax.servlet.http.HttpServletRequest, profile call will be
                              updated with url
   dispatch:org.springframework.web.servlet.DispatcherServlet.doDispatch - Dispatch method for your webserver.
-                             If this method exist, you will get results on a webpage with any url that ends with '/profile'
+                             If this method exist, you will get results on a webpage with any url that ends with '/profiler'
   logFile:<file name>        - Logs output to file insted of console
   logLevel:Err|Warn|Info|Debug|Trace - Logs level. Default is Err
   resultFile:<file name>     - Result output to file instead of console
